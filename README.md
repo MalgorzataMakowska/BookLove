@@ -1,5 +1,5 @@
 # BookLove
-Aplikacja BookLove została przygotowana przez Małgorzatę Makowską (135789) jako projekt zaliczeniowy z przedmiotu "Programowanie zaawansowane".
+Aplikacja BookLove została przygotowana przez Małgorzatę Makowską jako projekt zaliczeniowy z przedmiotu "Programowanie zaawansowane".
 
 Nazwa Projektu: BookLove
 
