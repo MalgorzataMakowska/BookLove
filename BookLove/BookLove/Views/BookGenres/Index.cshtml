@@ -1,0 +1,33 @@
+﻿@model IEnumerable<BookLove.Models.BookGenre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Gatunki książek</h1>
+<p>Tutaj możesz sprawdzić istniejące gatunki książek i wyszukać książki z określonych gatunków</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Dostępne gatunki książek
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <td>
+                    <a asp-action="BooksByGenre" asp-route-id="@item.Id"><button type="button" class="btn btn-light">Wyświetl ksiązki z gatunku</button></a>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

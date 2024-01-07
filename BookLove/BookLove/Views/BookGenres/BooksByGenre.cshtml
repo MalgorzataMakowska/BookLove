@@ -1,0 +1,37 @@
+﻿@model List<BookLove.Models.Book>
+
+@{
+    ViewData["Title"] = "Books by Genre";
+}
+
+<h1>Książki z gatunku: @ViewBag.GenreName</h1>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col">Tytuł książki</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Język książki</th>
+            <th scope="col">Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => book.Title)</td>
+                <td>@Html.DisplayFor(modelItem => book.Author)</td>
+                <td>@Html.DisplayFor(modelItem => book.Language)</td>
+
+                <td>
+                    <a asp-controller="Books" asp-action="Details" asp-route-id="@book.Id"><button type="button" class="btn btn-secondary">Szczegóły</button></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <a asp-action="Index">
+        <button type="button" class="btn btn-secondary">Powrót do listy gatunków</button>
+    </a>
+</div>

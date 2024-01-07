@@ -1,0 +1,30 @@
+﻿@model BookLove.Models.FavouriteBook
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Usuwanie książki z listy ulubionych</h1>
+<br />
+<h3>Czy jesteś pewny, że chcesz to usunąć?</h3>
+<div>
+    <br />
+    <h4>Ulubiona Książka</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tytuł
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Book.Title)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Usuń" class="btn btn-danger" /> 
+        <a asp-action="Index">
+            <button type="button" class="btn btn-secondary">Powrót</button>
+        </a>
+    </form>
+</div>

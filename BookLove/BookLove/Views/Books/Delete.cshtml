@@ -1,0 +1,54 @@
+﻿@model BookLove.Models.Book
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Usuwanie</h1>
+
+<h3>Czy jesteś pewny, że chcesz usunąć ten element?</h3>
+<br />
+<div>
+    <h5>Ksiązka</h5>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tytuł
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            Autor
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt class = "col-sm-2">
+           Język
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+        <dt class = "col-sm-2">
+            Gatunek Ksiązki
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookGenre.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            Opis
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">
+            <button type="button" class="btn btn-secondary">Powrót</button>
+        </a>
+    </form>
+</div>

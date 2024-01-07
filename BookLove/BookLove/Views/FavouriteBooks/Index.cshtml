@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BookLove.Models.FavouriteBook>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Twoje ulubione książki</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               Tytuł
+            </th>
+            <th>
+               Autor
+            </th>
+            <th>
+                Gatunek
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.BookGenre.Name)
+                </td>
+                <td>
+
+                    <a asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-danger">Usuń</button></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Create">
+        <button type="button" class="btn btn-success"> Dodaj więcej ulubionych książek</button>
+   </a>
+</p>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<img src="/images/book_love.jpg" class="img-fluid" alt="book_love_motto">
+<br />
+<br />
+<br />
+<style>
+    .img-equal-height {
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <a href="@Url.Action("Details", "Books", new { id = 8 })">
+                <img src="/images/kosmicznne_rozterki.jpg" class="img-fluid img-equal-height" alt="Image 1">
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@Url.Action("Details", "Books", new { id = 12 })">
+                <img src="/images/diabeł.jpg" class="img-fluid img-equal-height" alt="Image 2">
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@Url.Action("Details", "Books", new { id = 6 })">
+                <img src="/images/ostatnie_zyczenie.jpg" class="img-fluid img-equal-height" alt="Image 3">
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<p>Kliknij na okładkę by przenieść się do szczegółów danej książki</p>

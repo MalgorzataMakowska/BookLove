@@ -1,0 +1,49 @@
+﻿@model IEnumerable<BookLove.Models.Review>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Twoje recenzje</h1>
+
+<p>
+    <a asp-action="Create">
+        <button type="button" class="btn btn-secondary">Dodaj nową recenzję</button>
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Książka
+            </th>
+            <th>
+                Ocena
+            </th>
+            <th>
+                Opis
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Grade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edytuj</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

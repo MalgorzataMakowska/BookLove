@@ -1,0 +1,91 @@
+﻿@model BookLove.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Szczegóły</h1>
+
+<div>
+        <div>
+            <h4>Średnia ocena:
+            @if (ViewData["AverageRating"] is double averageRating)
+            {
+                <span>@averageRating.ToString("N2")</span>
+            }
+            else
+            {
+                <span class="text-warning">Brak ocen</span>
+            }
+            </h4>
+        </div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Tytuł
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class = "col-sm-2">
+            Autor
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </dd>
+        <dt class = "col-sm-2">
+            Język
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Language)
+        </dd>
+        <dt class = "col-sm-2">
+            Gatunek
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookGenre.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            Opis
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if (Model?.Id >= 1 && Model?.Id <= 15)
+    {
+        <span>Edytowanie niedostępne dla tej książki</span>
+    }
+    else
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edytuj</a>
+    }
+    </br>
+    <a asp-action="Index">Pokaż listę wszystkich dostępnych tytułów książek</a>
+    <br />
+    <a asp-controller="BookGenres" asp-action="BooksByGenre" asp-route-id="@Model?.BookGenre.Id">Pokaż listę wszystkich dostępnych tytułów książek w tym gatunku</a>
+</div>
+<br />
+<br />
+<div>
+    <h4>Recenzje</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ocena</th>
+                <th>Opis</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in ViewData["Reviews"] as List<Review>)
+            {
+                <tr>
+                    <td>@review.Grade</td>
+                    <td>@review.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

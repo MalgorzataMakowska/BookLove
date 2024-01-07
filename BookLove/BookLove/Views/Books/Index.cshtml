@@ -1,0 +1,127 @@
+﻿@model IEnumerable<BookLove.Models.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Książki - dostępne tytuły</h1>
+<p>Tutaj możesz dodać sprawdzić dostępne książki na platformie. Zaloguj się, aby oznaczyć książkę jako ulubioną, wyświetlić jej szczegóły a także dodać nową książkę do bazy BookLove.</p>
+<p>
+    <a asp-action="Create">
+        <button type="button" class="btn btn-secondary">Dodaj nową książkę</button>
+    </a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Tytuł
+            </th>
+            <th>
+                Autor
+            </th>
+            <th>
+                Gatunek Książki
+            </th>
+            <th>
+                Średnia ocen
+            </th>
+            <th>
+                Ulubiona
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BookGenre.Name)
+                </td>
+                <td>
+                    @if (ViewData["AverageRatings"] is Dictionary<int, double> averageRatings)
+                    {
+                        if (averageRatings.ContainsKey(item.Id) && averageRatings[item.Id] > 0)
+                        {
+                            @averageRatings[item.Id].ToString("N2")
+                        }
+                        else
+                        {
+                            <span class="text-warning">Brak ocen</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        var isFavourite = ViewData["IsFavourite_" + item.Id] != null && (bool)ViewData["IsFavourite_" + item.Id];
+                        @if (isFavourite)
+                        {
+                            <span class="text-success">Tak</span>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn-success" onclick="addToFavourites(@item.Id)">Dodaj do ulubionych</button>
+                        }
+                    }
+                    else
+                    {
+                        <a href="/Identity/Account/Login">
+                            <button type="button" class="btn btn-info">Zaloguj się</button>
+                        </a>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id"><button type="button" class="btn btn-light">Wyświetl szczegóły książki</button></a>
+                </td>
+                <td>
+                    @if (item.Id >= 1 && item.Id <= 15)
+                    {
+                        <button type="button" class="btn btn-light" style="display:none;">Edit</button>
+                    }
+                    else
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id"><button type="button" class="btn btn-light">Edytuj</button></a>
+                    }
+                </td>
+                <td>
+                    @if (item.Id >= 1 && item.Id <= 15)
+                    {
+                        <button type="button" class="btn btn-light" style="display:none;">Delete</button>
+                    }
+                    else
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.Id"><button type="button" class="btn btn-light">Usuń</button></a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    function addToFavourites(bookId) {
+        $.ajax({
+            url: '/FavouriteBooks/AddToFavourites',
+            type: 'POST',
+            data: { bookId: bookId },
+            success: function (data) {
+                if (data.success) {
+                    $('span[data-bookid="' + bookId + '"]').text("Tak").addClass("text-success");
+                    alert(data.message);
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function () {
+                alert('Wystąpił błąd podczas dodawania książki do ulubionych.');
+            }
+        });
+    }
+</script>
+
